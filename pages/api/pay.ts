@@ -3,7 +3,7 @@ import { Client, Environment, ApiError } from 'square';
 import { randomUUID } from 'crypto';
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
-const { paymentsApi, catalogApi } = new Client({
+const { paymentsApi } = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
   environment: Environment.Sandbox,
 })

@@ -7,5 +7,8 @@ module.exports = withTM ({
   reactStrictMode: true,
   experimental: {
     esmExternals: 'loose'
-  }
+  },
+  image: {
+    domains: ['https://square-catalog-sandbox.s3.amazonaws.com'],
+  },
 })
