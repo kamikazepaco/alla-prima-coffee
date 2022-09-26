@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Client, Environment } from 'square';
+import { Client, Environment, ApiError } from 'square';
 import { randomUUID } from 'crypto';
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
-const { paymentsApi } = new Client({
+const { paymentsApi, catalogApi } = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
   environment: Environment.Sandbox,
 })
@@ -23,5 +23,17 @@ export default async function handler(req, res) {
     res.status(200).json(result);
   } else {
     res.status(500).send();
+  }
+}
+
+console.info('boo', catalogApi)
+try {
+  const { result} = await catalogApi.listCatalog();
+  console.log(result)
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
   }
 }
