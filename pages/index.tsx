@@ -1,11 +1,13 @@
 import { PaymentForm, CreditCard, Ach } from 'react-square-web-payments-sdk'
 
+const appId = 'sandbox-sq0idb-sFYz-wegQ3xweJMRFCAQog'
+const locId = 'LCK5A68VEZ0NF'
 
 const MyPaymentForm = () => {
   return (
     <PaymentForm
-      applicationId= 'sandbox-sq0idb-sFYz-wegQ3xweJMRFCAQog'
-      locationId='LCK5A68VEZ0NF'
+      applicationId= {appId}
+      locationId={locId}
       cardTokenizeResponseReceived={ async (token, buyer) => {
         const response = await fetch('api/pay', {
           method: "POST",

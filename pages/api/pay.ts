@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Client } from 'square';
+import { Client, Environment } from 'square';
 import { randomUUID } from 'crypto';
-BigInt.prototype.toJSON = function() { return this.toString(); }
+(BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
 const { paymentsApi } = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
-  environment: 'sandbox',
+  environment: Environment.Sandbox,
 })
 
 console.info("New Client created", paymentsApi)
@@ -25,5 +25,3 @@ export default async function handler(req, res) {
     res.status(500).send();
   }
 }
-
-
