@@ -25,15 +25,3 @@ export default async function handler(req, res) {
     res.status(500).send();
   }
 }
-
-console.info('boo', catalogApi)
-try {
-  const { result} = await catalogApi.listCatalog();
-  console.log(result)
-  // const { statusCode, headers } = httpResponse;
-} catch(error) {
-  if (error instanceof ApiError) {
-    const errors = error.result;
-    // const { statusCode, headers } = error;
-  }
-}
