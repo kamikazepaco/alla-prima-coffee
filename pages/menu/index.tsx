@@ -4,14 +4,48 @@ import { Client, Environment } from 'square'
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
 
-const Menu = ({results, data}) => {
-    console.log(data);
+const Menu = ({relData, data}) => {
 
+    const mergeArr2 = data.map( a => {
+        const matched = relData.find(b => b.id === a.itemData.imageIds)
+        if(matched) {
+            return {...data,...matched}
+
+        } else {
+            return {...data}
+        }
+    })
+
+    var mergeArr = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
+
+   console.log(mergeArr2)
 
   return (
     <div>
         <h1>Menu</h1>
-        { results && results.objects.map(items  => (
+
+        {mergeArr && mergeArr.map((item:any) =>(
+            <>
+                <Image src={item.imageData.url} width={50} height={50} />
+                <p>** {item.itemData.name} ITEM ID IS {item.itemData.variations[0].itemVariationData.itemId}</p>
+                <h2>{item.itemData.name}</h2>
+                <h3>{ item.itemData.description}</h3>
+
+                {item.itemData.variations.map(variation => (
+                // this is my current solution for displaying price variations. its not elegant, but it gets the job done. God speed when it comes to importing the image
+                <>
+                <p>{variation.itemVariationData.name}:</p>
+                <p> $ {`${(Math.round(variation.itemVariationData.priceMoney.amount) / 100).toFixed(2) }`}
+                </p>
+
+                </>
+            ))}
+                <hr></hr>
+            </>
+        ))}
+
+
+        {/* { results && results.objects.map(items  => (
             <>
             <h2>{ items.itemData.name }</h2>
             <h3> { items.itemData.description} </h3>
@@ -31,9 +65,8 @@ const Menu = ({results, data}) => {
 
                 </>
             ))}
-
            </>
-        ))}
+        ))} */}
 
 
     </div>
@@ -52,24 +85,47 @@ export async function getServerSideProps(){
 
     const { catalogApi } = new Client(config);
 
-    const {result } = await catalogApi.listCatalog(undefined, 'ITEM');
-    // const data = await res.json();
-
-    const oof = await catalogApi.searchCatalogObjects({
+    const res = await catalogApi.searchCatalogObjects({
         objectTypes: [
-          'IMAGE'
+          'ITEM',
+
         ],
         includeDeletedObjects: false,
         includeRelatedObjects: true
       });
 
+     const data = res.result.objects
+     const rel = res.result.relatedObjects
 
-    console.log("image JSON is", oof.body);
+     console.log(res.result)
 
-    return {
+
+      return {
         props: {
-            data: JSON.parse(oof.body.toString()),
-            results: JSON.parse(JSON.stringify(result))
+            data: JSON.parse(JSON.stringify(data)),
+            relData: JSON.parse(JSON.stringify(rel)),
+
         }
-    }
+      }
+
+    // const {result } = await catalogApi.listCatalog(undefined, 'ITEM');
+    // // const data = await res.json();
+
+    // const oof = await catalogApi.searchCatalogObjects({
+    //     objectTypes: [
+    //       'IMAGE'
+    //     ],
+    //     includeDeletedObjects: false,
+    //     includeRelatedObjects: true
+    //   });
+
+
+    // console.log("image JSON is", oof.body);
+
+    // return {
+    //     props: {
+    //         data: JSON.parse(oof.body.toString()),
+    //         results: JSON.parse(JSON.stringify(result))
+    //     }
+    // }
 }
