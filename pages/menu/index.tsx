@@ -7,15 +7,15 @@ const Menu = ({relData, data}) => {
 
     //Square's API doesnt pass the Img url with the item data. After 4 days, 17 cups of coffee, 100s of stack overflow research, and half a bottle of whiskey, I found the below method of combining the arrays to be best. Unfortunately, It makes the parent ID the img id instead of the item ID. In order to generate the pages for each item (not needed for the site, but good practice), I've located the item ID in the following path of the new array << item.itemData.variations[0].itemVariationData.itemId >>   All items will ALWAYS have a variation, so we can specify the first array to ensure a single, 'clean' ID pull
 
-    var mergeArr = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
+    var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
 
-   console.log(mergeArr)
+   console.log(items)
 
   return (
     <div>
       <h1>Menu</h1>
-      {mergeArr &&
-        mergeArr.map((item: any) => (
+      {items &&
+        items.map((item: any) => (
           <>
             <Image
               src={`${
@@ -47,9 +47,17 @@ const Menu = ({relData, data}) => {
                 </p>
               </>
             ))}
+            <button> details</button>
             <hr></hr>
           </>
         ))}
+
+        <div className="modal-container">
+          <div className="modal-header">
+            <button>x</button>
+          </div>
+          <div className="modal-content"></div>
+        </div>
     </div>
   );
 }
