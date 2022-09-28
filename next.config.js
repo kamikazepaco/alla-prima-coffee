@@ -9,6 +9,9 @@ module.exports = withTM ({
     esmExternals: 'loose'
   },
   images: {
-    domains: ['square-catalog-sandbox.s3.amazonaws.com'],
+    domains: [
+      'square-catalog-sandbox.s3.amazonaws.com',
+      'images.squarespace-cdn.com',
+    ],
   },
 })
