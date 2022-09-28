@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Client, Environment } from 'square'
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
+import fallback from '../../public/IMG_1226.jpeg'
+
 
 
 const Menu = ({relData, data}) => {
@@ -20,13 +22,20 @@ const Menu = ({relData, data}) => {
 
    console.log(mergeArr2)
 
+
+   function onErrorImage(e) {
+    e.target.src = fallback
+ }
+
   return (
     <div>
         <h1>Menu</h1>
 
         {mergeArr && mergeArr.map((item:any) =>(
             <>
-                <Image src={item.imageData.url} width={50} height={50} />
+                <Image src={ item.imageData.url } onErrorCapture={onErrorImage}
+                width={150} height={150}
+                />
                 <p>** {item.itemData.name} ITEM ID IS {item.itemData.variations[0].itemVariationData.itemId}</p>
                 <h2>{item.itemData.name}</h2>
                 <h3>{ item.itemData.description}</h3>
