@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-(BigInt.prototype as any).toJSON = function() { return this.toString(); }
+import Modal from "react-modal";
+import Link from 'next/link';
 import axios from 'axios';
+(BigInt.prototype as any).toJSON = function() { return this.toString(); }
+
+Modal.setAppElement("#__next")
 
 const Menu = ({relData, data}) => {
-
     //Square's API doesnt pass the Img url with the item data. After 4 days, 17 cups of coffee, 100s of stack overflow research, and half a bottle of whiskey, I found the below method of combining the arrays to be best. Unfortunately, It makes the parent ID the img id instead of the item ID. In order to generate the pages for each item (not needed for the site, but good practice), I've located the item ID in the following path of the new array << item.itemData.variations[0].itemVariationData.itemId >>   All items will ALWAYS have a variation, so we can specify the first array to ensure a single, 'clean' ID pull
 
     var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
+    console.log(items)
 
-   console.log(items)
 
   return (
     <div>
@@ -33,6 +36,29 @@ const Menu = ({relData, data}) => {
             <h2>{item.itemData.name}</h2>
             <h3>{item.itemData.description}</h3>
 
+            {/* In order to reduce amount of API calls/Just have the ID needed for each new page, I passed a quesry within the Link that contains the itemId and image logic. for educational purposes, the [id] pages will probably use getStaticPros */}
+            <Link
+              key={`${item.itemData.variations[0].itemVariationData.itemId}`}
+              href={
+                {
+                  pathname: '/menu/[ProductId]',
+                  query: {
+                    itemId: item.itemData.variations[0].itemVariationData.itemId,
+                    imageId: `${
+                      item.imageData?.url ||
+                      "https://images.squarespace-cdn.com/content/v1/60d9bda05f2faf5b5587197e/1626686508702-EZGYKT0UQ1AMJ8ULFCEC/logotype.png?format=750w"
+                    }`
+                  }
+                }
+              }
+              as={`/menu/${item.itemData.name}`}
+               passHref
+              >
+              <a>
+                <h4>Details</h4>
+              </a>
+            </Link>
+
             {item.itemData.variations.map((variation) => (
               // this is my current solution for displaying price variations. its not elegant, but it gets the job done. God speed when it comes to importing the image
               <>
@@ -47,17 +73,13 @@ const Menu = ({relData, data}) => {
                 </p>
               </>
             ))}
-            <button> details</button>
             <hr></hr>
           </>
         ))}
 
-        <div className="modal-container">
-          <div className="modal-header">
-            <button>x</button>
-          </div>
-          <div className="modal-content"></div>
-        </div>
+        <Modal isOpen='true'>
+          <div>In the modal</div>
+        </Modal>
     </div>
   );
 }
@@ -78,7 +100,7 @@ export const getServerSideProps = async () => {
 export default Menu
 
 
-// could probably move to a separate component, but I actually dont know. 
+// could probably move to a separate component, but I actually dont know.
 
 
 // export async function getServerSideProps(){
@@ -97,7 +119,7 @@ export default Menu
 //         includeRelatedObjects: true
 //       });
 
-//     //separate first JSON object from second. first carries Item info and second carries related objects. Thats all including images, categories, tax, etc.  
+//     //separate first JSON object from second. first carries Item info and second carries related objects. Thats all including images, categories, tax, etc.
 //     const data = res.result.objects
 //     const rel = res.result.relatedObjects
 
