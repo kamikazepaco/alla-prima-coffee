@@ -77,9 +77,9 @@ const Menu = ({relData, data}) => {
           </>
         ))}
 
-        <Modal isOpen='true'>
+        {/* <Modal isOpen='true'>
           <div>In the modal</div>
-        </Modal>
+        </Modal> */}
     </div>
   );
 }
@@ -87,7 +87,7 @@ const Menu = ({relData, data}) => {
 export const getServerSideProps = async () => {
   const res = await axios.get("http://localhost:3000/api/menu/");
 
-  console.log(res.data.relatedObjects)
+  
   return {
     props: {
       data: res.data.objects,

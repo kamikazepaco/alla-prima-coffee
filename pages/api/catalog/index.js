@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   if(method === "GET") {
     try {
-        const response = await client.catalogApi.retrieveCatalogObject('X2VTGY2XRZCNMMY6ZTZTWD2W',
+        const response = await catalogApi.retrieveCatalogObject('X2VTGY2XRZCNMMY6ZTZTWD2W',
         true);
 
         console.log(response.result);
@@ -20,3 +20,4 @@ export default async function handler(req, res) {
         console.log(error);
       }
   }
+}
