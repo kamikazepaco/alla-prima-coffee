@@ -1,16 +1,13 @@
-import { CreditCard, Ach } from 'react-square-web-payments-sdk'
+import Head from "next/head"
 
-const MyPaymentForm = () => {
-  return (
-    <>
-      <CreditCard />
-      <p></p>
 
-      <Ach accountHolderName="John Dont" redirectURI="https://example.com/" transactionId="54321" />
-    </>
-  )
+
+export default function Home() {
+  <div className="styles container">
+    <Head>
+      <title>Alla Prima Coffee Roaster | Pensacola, FL</title>
+      <meta name="description" content="World-class coffee in Pensacola, FL" />
+      <link rel="icon" href="/favicon.ico"  />
+    </Head>
+  </div>
 }
-
-
-
-export default MyPaymentForm
