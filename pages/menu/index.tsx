@@ -37,23 +37,22 @@ const Menu = ({relData, data}) => {
             <h3>{item.itemData.description}</h3>
 
             {/* In order to reduce amount of API calls/Just have the ID needed for each new page, I passed a quesry within the Link that contains the itemId and image logic. for educational purposes, the [id] pages will probably use getStaticPros */}
+            
+            {/* I wanted a way to pass link as item's name. theo nly way to do so and have the code persistent on reload was to pass itemId in query for initial pull and as key in URL for reload/sharing link. more research required  */}
             <Link
-              key={`${item.itemData.variations[0].itemVariationData.itemId}`}
-              href={
-                {
-                  pathname: '/menu/[ProductId]',
-                  query: {
-                    itemId: item.itemData.variations[0].itemVariationData.itemId,
-                    imageId: `${
-                      item.imageData?.url ||
-                      "https://images.squarespace-cdn.com/content/v1/60d9bda05f2faf5b5587197e/1626686508702-EZGYKT0UQ1AMJ8ULFCEC/logotype.png?format=750w"
-                    }`
-                  }
-                }
-              }
-              as={`/menu/${item.itemData.name}`}
-               passHref
-              >
+              href={{
+                pathname: `/menu/[ProductId]`,
+                query: {
+                  itemId: item.itemData.variations[0].itemVariationData.itemId,
+                  imageId: `${
+                    item.imageData?.url ||
+                    "https://images.squarespace-cdn.com/content/v1/60d9bda05f2faf5b5587197e/1626686508702-EZGYKT0UQ1AMJ8ULFCEC/logotype.png?format=750w"
+                  }`,
+                },
+              }}
+              as={`/menu/${item.itemData.name}?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
+              passHref
+            >
               <a>
                 <h4>Details</h4>
               </a>
@@ -77,7 +76,7 @@ const Menu = ({relData, data}) => {
           </>
         ))}
 
-        {/* <Modal isOpen='true'>
+      {/* <Modal isOpen='true'>
           <div>In the modal</div>
         </Modal> */}
     </div>

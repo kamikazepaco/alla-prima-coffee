@@ -6,7 +6,7 @@ export default function ProductId() {
   const router = useRouter();
 
     const { itemId, ProductId} = router.query
-    console.log(router.query.itemId)
+    console.log(router.query)
 
 
 
