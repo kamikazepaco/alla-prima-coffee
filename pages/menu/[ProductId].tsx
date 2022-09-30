@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { Client, Environment } from "square";
+import {Item} from '../../components/Item'
 
 
 export default function ProductId() {
@@ -10,7 +11,16 @@ export default function ProductId() {
 
 
 
-    return <div>I am a {ProductId} with an ID of {itemId}</div>
+    return (
+      <div>
+
+      <div>I am a {ProductId} with an ID of {itemId}</div>
+        <div>
+          <Item itemId={itemId} />
+        </div>
+      </div>
+    )
+
 
 
 

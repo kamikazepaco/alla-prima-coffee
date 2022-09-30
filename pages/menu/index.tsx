@@ -1,21 +1,36 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import Modal from "react-modal";
+// import {Modal} from "../../components/modal";
+import Modal from 'react-modal';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import Catalog from '../../components/ItemDetails'
+import { Item } from '../../components/Item';
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
 Modal.setAppElement("#__next")
 
 const Menu = ({relData, data}) => {
-    //Square's API doesnt pass the Img url with the item data. After 4 days, 17 cups of coffee, 100s of stack overflow research, and half a bottle of whiskey, I found the below method of combining the arrays to be best. Unfortunately, It makes the parent ID the img id instead of the item ID. In order to generate the pages for each item (not needed for the site, but good practice), I've located the item ID in the following path of the new array << item.itemData.variations[0].itemVariationData.itemId >>   All items will ALWAYS have a variation, so we can specify the first array to ensure a single, 'clean' ID pull
-
+  //Square's API doesnt pass the Img url with the item data. After 4 days, 17 cups of coffee, 100s of stack overflow research, and half a bottle of whiskey, I found the below method of combining the arrays to be best. Unfortunately, It makes the parent ID the img id instead of the item ID. In order to generate the pages for each item (not needed for the site, but good practice), I've located the item ID in the following path of the new array << item.itemData.variations[0].itemVariationData.itemId >>   All items will ALWAYS have a variation, so we can specify the first array to ensure a single, 'clean' ID pull
+  const router = useRouter()
+  
     var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
     console.log(items)
 
 
   return (
     <div>
+      {/* {router.query.itemId && (
+        <Modal
+          onClose={() => {
+            router.push("/");
+          }}
+        >
+          <Item itemId={router.query.itemId} />
+          <h1>oof</h1>
+        </Modal>
+      )} */}
       <h1>Menu</h1>
       {items &&
         items.map((item: any) => (
@@ -37,11 +52,11 @@ const Menu = ({relData, data}) => {
             <h3>{item.itemData.description}</h3>
 
             {/* In order to reduce amount of API calls/Just have the ID needed for each new page, I passed a quesry within the Link that contains the itemId and image logic. for educational purposes, the [id] pages will probably use getStaticPros */}
-            
+
             {/* I wanted a way to pass link as item's name. theo nly way to do so and have the code persistent on reload was to pass itemId in query for initial pull and as key in URL for reload/sharing link. more research required  */}
-            <Link
+            {/* <Link
               href={{
-                pathname: `/menu/[ProductId]`,
+                pathname: `/?itemId=${item.itemData.variations[0].itemVariationData.itemId}`,
                 query: {
                   itemId: item.itemData.variations[0].itemVariationData.itemId,
                   imageId: `${
@@ -51,7 +66,14 @@ const Menu = ({relData, data}) => {
                 },
               }}
               as={`/menu/${item.itemData.name}?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
-              passHref
+            >
+              <a>
+                <h4>Details</h4>
+              </a>
+            </Link> */}
+            <Link
+              href={`/menu/?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
+              as={`/menu/${item.itemData.name}?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
             >
               <a>
                 <h4>Details</h4>
@@ -76,9 +98,9 @@ const Menu = ({relData, data}) => {
           </>
         ))}
 
-      {/* <Modal isOpen='true'>
-          <div>In the modal</div>
-        </Modal> */}
+      <Modal isOpen={!!router.query.itemId} onRequestClose={() => router.push("/menu")}>
+        <Catalog itemId={router.query.itemId} />
+      </Modal>
     </div>
   );
 }
