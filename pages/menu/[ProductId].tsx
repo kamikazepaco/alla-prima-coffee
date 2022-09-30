@@ -55,7 +55,7 @@ export const getServerSideProps = async (context: any) => {
         return {
           props: {
             data: 'bppp'
-          }
+          },
           // returns a redirect to menu page. this is the solution until a way to store and recover item keys is devised (prob cookies)
           // redirect: {
           //   destination: '/menu',
