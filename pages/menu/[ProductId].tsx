@@ -3,16 +3,15 @@ import { Client, Environment } from "square";
 
 
 export default function ProductId() {
-    const router = useRouter();
+  const router = useRouter();
+
     const { itemId, ProductId} = router.query
     console.log(router.query.itemId)
-    const item = router.query.itemId
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
+
+
 
     return <div>I am a {ProductId} with an ID of {itemId}</div>
-}
+
 
 
 // export const getServerSideProps = (context) => {
@@ -22,7 +21,7 @@ export default function ProductId() {
 //             data: 'boo'
 //         }
 //     }
-// }
+}
 
 
 
@@ -53,9 +52,18 @@ export const getServerSideProps = async (context: any) => {
       }
     } else {
         console.log('oh no')
-        return { props: {}, };
+        return {
+          props: {
+            data: 'bppp'
+          }
+          // returns a redirect to menu page. this is the solution until a way to store and recover item keys is devised (prob cookies)
+          // redirect: {
+          //   destination: '/menu',
+          //   permanent: false,
+          // },
+        };
     }
-    
+
 }
 
 
