@@ -50,8 +50,7 @@ export const getServerSideProps = async (context: any) => {
     try {
         const response = await catalogApi.retrieveCatalogObject(`${itemId}`,
         true);
-        console.log("Yaaaas")
-        console.log(response.result);
+        console.log("in PID", response.result);
         return {
             props: {
                 data: 'boo'

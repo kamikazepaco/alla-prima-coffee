@@ -12,36 +12,37 @@ const fetchItem = async (itemId) => {
 
     const { catalogApi } = new Client(config);
 
-  axios
-    .get(`https://connect.squareupsandbox.com/v2/catalog/object/${itemId}`)
-    .then(function (response) {
-      console.log(response.data);
-    });
-}
-
-
-
-// fetch(
-//     `https://connect.squareupsandbox.com/v2/catalog/object/${itemId}`
-// ).then((res) => res.json());
-
-// {
-//   const config = {
-//     accessToken: process.env.SQUARE_ACCESS_TOKEN,
-//     environment: Environment.Sandbox,
-//   };
-
-//   const { catalogApi } = new Client(config);
-
-// const response = await catalogApi.retrieveCatalogObject(`${itemId}`);
-
-// console.log(response.result);
-
+//   await axios.get(`https://connect.squareupsandbox.com/v2/catalog/object/${itemId}`)
+//     .then(function (response) {
+//       console.log("test", response.data);
+//     });
 // }
 
 
 
-export default function Catalog() {
+await axios.get(
+    `https://connect.squareupsandbox.com/v2/catalog/object/${itemId}`
+).then(function (response) {
+    console.log('finalllllllllly')
+});
+
+{
+  const config = {
+    accessToken: process.env.SQUARE_ACCESS_TOKEN,
+    environment: Environment.Sandbox,
+  };
+
+  const { catalogApi } = new Client(config);
+
+const response = await catalogApi.retrieveCatalogObject(`${itemId}`);
+
+console.log(response.result);
+
+}
+
+
+
+export default function Item() {
     const router = useRouter()
     const {itemId} = router.query
     console.log(itemId)

@@ -17,9 +17,7 @@ export default async function handler(req, res) {
         includeDeletedObjects: false,
         includeRelatedObjects: true,
       });
-
-      console.log("api pull success!");
-
+      
       return res.status(200).json(data.result);
     } catch (err) {
       res.status(500).json(err);

@@ -5,8 +5,7 @@ import Modal from 'react-modal';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Catalog from '../../components/ItemDetails'
-import { Item } from '../../components/Item';
+import Item  from '../../components/ItemDetails';
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
 Modal.setAppElement("#__next")
@@ -99,7 +98,7 @@ const Menu = ({relData, data}) => {
         ))}
 
       <Modal isOpen={!!router.query.itemId} onRequestClose={() => router.push("/menu")}>
-        <Catalog itemId={router.query.itemId} />
+        <Item itemId={router.query.itemId} />
       </Modal>
     </div>
   );
