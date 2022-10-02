@@ -12,6 +12,16 @@ module.exports = withTM ({
     domains: [
       'square-catalog-sandbox.s3.amazonaws.com',
       'images.squarespace-cdn.com',
+      'connect.squareupsandbox.com',
+
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/catalog/:path*',
+        destination: 'https://https://connect.squareupsandbox.com/v2/catalog/object/:path*',
+      },
+    ]
   },
 })

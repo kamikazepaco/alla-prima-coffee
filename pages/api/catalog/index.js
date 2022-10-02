@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import { Client, Environment } from "square";
 
 export default async function handler(req, res) {
+  router = useRouter();
+  console.log("here", req)
   const { method } = req;
-  
+
 
   const config = {
     accessToken: process.env.SQUARE_ACCESS_TOKEN,
