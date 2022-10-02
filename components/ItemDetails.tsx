@@ -4,50 +4,30 @@ import { Router, useRouter } from 'next/router'
 import { CatalogApi, Environment, Client } from 'square';
 import useSWR from 'swr';
 
-const fetchItem = async (itemId) => {
-    // const config = {
-    //   accessToken: process.env.SQUARE_ACCESS_TOKEN,
-    //   environment: Environment.Sandbox,
-    // };
 
-    // const { catalogApi } = new Client(config);
+const fetcher = async (url) => 
+{
 
-//   await axios.get(`https://connect.squareupsandbox.com/v2/catalog/object/${itemId}`)
-//     .then(function (response) {
-//       console.log("test", response.data);
-//     });
-// }
+    console.log("Fetch read", itemId)
 
-const router = useRouter()
+ fetch(url).then((res) => res.json());
 
-const data = await axios.get(`https://localhost:3000/catalog/`, {params: router.query.itemId }).then(function (response) {
-    console.log('finalllllllllly')
-});
+// const data = await axios
+//   .get(
+//     `https://connect.squareupsandbox.com/v2/catalog/object/{itemId}`,
+//   )
+//   .catch(function (error) {
+//     console.log(error.toJSON());
+//   });
 }
-// {
-//   const config = {
-//     accessToken: process.env.SQUARE_ACCESS_TOKEN,
-//     environment: Environment.Sandbox,
-//   };
 
-//   const { catalogApi } = new Client(config);
 
-// const response = await catalogApi.retrieveCatalogObject(`${itemId}`);
+export default function Item({itemId}) {
+    console.log("it worked", itemId)
 
-// console.log(response.result);
-
-// }
-
-// }
-
-export default function Item() {
-    const router = useRouter()
-    const {itemId} = router.query
-    console.log(itemId)
-
-    const { data, error } = useSWR(itemId, fetchItem)
+    const { data, error } = useSWR(['/api/catalog', itemId.itemId], fetcher)
     console.log("whoop whoop", data)
-    console.log(error)
+    console.log("error", error)
     if (error) return <div>oops</div>
     if (!data) return <div>loading</div>
 

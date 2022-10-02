@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { Client, Environment } from "square";
-import {Item} from '../../components/ItemDetails'
+import Item from '../../components/ItemDetails'
 
 
 export default function ProductId() {
@@ -35,45 +35,45 @@ export default function ProductId() {
 
 
 
-export const getServerSideProps = async (context: any) => {
+// export const getServerSideProps = async (context: any) => {
 
-    const {itemId} = context.query
-  const config = {
-    accessToken: process.env.SQUARE_ACCESS_TOKEN,
-    environment: Environment.Sandbox,
-  };
+//     const {itemId} = context.query
+//   const config = {
+//     accessToken: process.env.SQUARE_ACCESS_TOKEN,
+//     environment: Environment.Sandbox,
+//   };
 
-  const { catalogApi } = new Client(config);
+//   const { catalogApi } = new Client(config);
 
-  if (itemId){
+//   if (itemId){
 
-    try {
-        const response = await catalogApi.retrieveCatalogObject(`${itemId}`,
-        true);
-        console.log("in PID", response.result);
-        return {
-            props: {
-                data: 'boo'
-            }
-        }
-      } catch(error) {
-        console.log(error);
-      }
-    } else {
-        console.log('oh no')
-        return {
-          props: {
-            data: 'bppp'
-          },
+//     try {
+//         const response = await catalogApi.retrieveCatalogObject(`${itemId}`,
+//         true);
+//         console.log("in PID", response.result);
+//         return {
+//             props: {
+//                 data: 'boo'
+//             }
+//         }
+//       } catch(error) {
+//         console.log(error);
+//       }
+//     } else {
+//         console.log('oh no')
+//         return {
+//           props: {
+//             data: 'bppp'
+//           },
           // returns a redirect to menu page. this is the solution until a way to store and recover item keys is devised (prob cookies)
           // redirect: {
           //   destination: '/menu',
           //   permanent: false,
           // },
-        };
-    }
+//         };
+//     }
 
-}
+// }
 
 
 
