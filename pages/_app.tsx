@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { PaymentForm } from 'react-square-web-payments-sdk'
+import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         alert(JSON.stringify(await response.json(), null, 2));
       }}
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </PaymentForm>
   )
 }
