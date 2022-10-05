@@ -4,74 +4,12 @@ import styles from '../styles/Hero.module.css'
 const Hero = () => {
   return (
     <header className={styles.hero}>
+        <div className={styles.test}></div>
       <div className={styles.hero_container}>
-
-      <div>Hero</div>
-      <div>Hero2</div>
-      <div>Hero3</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
-      <div>Hero4</div>
+        <div className={styles.hero_text}>
+          <h2> Carefully Curated and Expertly Roasted</h2>
+        </div>
+        <button className={styles.btn}>Where to Buy</button>
       </div>
     </header>
   )
