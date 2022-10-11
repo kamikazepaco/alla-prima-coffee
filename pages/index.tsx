@@ -1,5 +1,7 @@
 import Head from "next/head"
 import Hero from '../components/Hero'
+import Subscriptions from '../components/Subscriptions'
+import Beans from '../components/Beans'
 
 
 
@@ -13,6 +15,8 @@ export default function Home() {
       <link rel="icon" href="/favicon.ico"  />
     </Head>
     <Hero />
+    <Subscriptions />
+    <Beans />
   </div>
   )
 }

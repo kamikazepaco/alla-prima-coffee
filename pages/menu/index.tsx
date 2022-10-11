@@ -1,35 +1,30 @@
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 // import {Modal} from "../../components/modal";
-import Modal from 'react-modal';
-import Link from 'next/link';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import Item  from '../../components/ItemDetails';
-(BigInt.prototype as any).toJSON = function() { return this.toString(); }
+import Modal from "react-modal";
+import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Item from "../../components/ItemDetails";
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
 
-Modal.setAppElement("#__next")
+Modal.setAppElement("#__next");
 
-const Menu = ({relData, data}) => {
+const Menu = ({ relData, data }) => {
   //Square's API doesnt pass the Img url with the item data. After 4 days, 17 cups of coffee, 100s of stack overflow research, and half a bottle of whiskey, I found the below method of combining the arrays to be best. Unfortunately, It makes the parent ID the img id instead of the item ID. In order to generate the pages for each item (not needed for the site, but good practice), I've located the item ID in the following path of the new array << item.itemData.variations[0].itemVariationData.itemId >>   All items will ALWAYS have a variation, so we can specify the first array to ensure a single, 'clean' ID pull
-  const router = useRouter()
-  
-    var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
-    console.log(items)
+  const router = useRouter();
 
+  var items = data.map((a: any) =>
+    Object.assign(
+      a,
+      relData.find((b: any) => b.id == a.itemData.imageIds)
+    )
+  );
 
   return (
     <div>
-      {/* {router.query.itemId && (
-        <Modal
-          onClose={() => {
-            router.push("/");
-          }}
-        >
-          <Item itemId={router.query.itemId} />
-          <h1>oof</h1>
-        </Modal>
-      )} */}
       <h1>Menu</h1>
       {items &&
         items.map((item: any) => (
@@ -97,31 +92,30 @@ const Menu = ({relData, data}) => {
           </>
         ))}
 
-      <Modal isOpen={!!router.query.itemId} onRequestClose={() => router.push("/menu")}>
+      <Modal
+        isOpen={!!router.query.itemId}
+        onRequestClose={() => router.push("/menu")}
+      >
         <Item itemId={router.query.itemId} />
       </Modal>
     </div>
   );
-}
+};
 
 export const getServerSideProps = async () => {
   const res = await axios.get("http://localhost:3000/api/menu/");
 
-  
   return {
     props: {
       data: res.data.objects,
-      relData: res.data.relatedObjects
+      relData: res.data.relatedObjects,
     },
   };
 };
 
-
-export default Menu
-
+export default Menu;
 
 // could probably move to a separate component, but I actually dont know.
-
 
 // export async function getServerSideProps(){
 //     console.log('hello world! kinda..');

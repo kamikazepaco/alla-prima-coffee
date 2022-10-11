@@ -2,16 +2,13 @@ import { useRouter } from "next/router";
 import { Client, Environment } from "square";
 
 export default async function handler(req, res) {
-  console.log("here", req)
+  console.log("here", req);
   const { method, itemId } = req;
-
-
 
   const client = new Client({
     environment: Environment.Sandbox,
-    accessToken: "ACCESS_TOKEN",
+    accessToken: process.env.SQUARE_ACCESS_TOKEN, // this is wrong
   });
-
 
   // client.search({itemId: itemId.itemId}).then((resp) => {
   //   res.status(200).json(resp.data)
@@ -20,14 +17,16 @@ export default async function handler(req, res) {
   //   console.log('ya boofing')
   // })
 
-  if(method === "GET") {
+  if (method === "GET") {
     try {
-        const response = await client.catalogApi.retrieveCatalogObject( req.query.itemId ,
-        true);
+      const response = await client.catalogApi.retrieveCatalogObject(
+        itemId,
+        true
+      );
 
-        console.log("in API folder", response.result);
-      } catch(error) {
-        console.log("boofing error", error);
-      }
+      // console.log("in API folder", response.result);
+    } catch (error) {
+      console.log("boofing error", error);
+    }
   }
 }
