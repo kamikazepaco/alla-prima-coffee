@@ -6,6 +6,8 @@
     align-items: center;
     justify-content: center;
     height: 90vh;
+    margin-top: -100px;
+    min-width: 100vw;
     background-color: #e6e6e6;
     /* background-image: url(https://images.unsplash.com/photo-1631644069009-ee31a1dc5ba5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80); */
     /* background-image: url(https://images.unsplash.com/photo-1533938661601-d44c02e40171?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80); */

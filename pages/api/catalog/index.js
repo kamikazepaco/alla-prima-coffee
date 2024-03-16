@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   const client = new Client({
     environment: Environment.Sandbox,
-    accessToken: "ACCESS_TOKEN",
+    accessToken: process.env.SQUARE_ACCESS_TOKEN, //"ACCESS_TOKEN",
   });
 
 

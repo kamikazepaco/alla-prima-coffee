@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Poppins:wght@700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: 'Noto Sans JP', sans-serif;
-
+  background-color: #e9dec7;
 }
 
 a {
@@ -25,4 +29,15 @@ a {
     color: white;
     background: black;
   }
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }

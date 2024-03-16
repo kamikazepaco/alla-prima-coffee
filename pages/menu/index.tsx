@@ -6,6 +6,9 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Item  from '../../components/ItemDetails';
+import ProductId from './[ProductId]';
+
+
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
 
 Modal.setAppElement("#__next")
@@ -16,7 +19,6 @@ const Menu = ({relData, data}) => {
   
     var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
     console.log(items)
-
 
   return (
     <div>
@@ -31,18 +33,17 @@ const Menu = ({relData, data}) => {
         </Modal>
       )} */}
       <h1>Menu</h1>
+
       {items &&
         items.map((item: any) => (
+          
           <>
-            <Image
-              src={`${
-                item.imageData?.url ||
-                "https://images.squarespace-cdn.com/content/v1/60d9bda05f2faf5b5587197e/1626686508702-EZGYKT0UQ1AMJ8ULFCEC/logotype.png?format=750w"
-              }`}
-              width={150}
-              height={150}
-              alt={item.itemData.name}
-            />
+          <Image 
+            src={item.imageData.url}
+            width={150}
+            height={150}
+            alt={item.imageData.name}
+          />
             <p>
               ** {item.itemData.name} ITEM ID IS{" "}
               {item.itemData.variations[0].itemVariationData.itemId}
@@ -81,8 +82,11 @@ const Menu = ({relData, data}) => {
 
             {item.itemData.variations.map((variation) => (
               // this is my current solution for displaying price variations. its not elegant, but it gets the job done. God speed when it comes to importing the image
+              //attempting to use counter to iterate variation numbers for the 'more info' section
+              
               <>
                 <p>{variation.itemVariationData.name}:</p>
+                
                 <p>
                   {" "}
                   ${" "}
@@ -91,6 +95,14 @@ const Menu = ({relData, data}) => {
                     100
                   ).toFixed(2)}`}
                 </p>
+                <Link
+                  href={`/menu/?itemId=${variation.id}`}
+                  as={`/menu/${item.itemData.name}?itemId=${variation.id}`}
+                >
+                <a>
+                  <h4>More Info</h4>
+                </a>
+              </Link>
               </>
             ))}
             <hr></hr>
@@ -98,7 +110,19 @@ const Menu = ({relData, data}) => {
         ))}
 
       <Modal isOpen={!!router.query.itemId} onRequestClose={() => router.push("/menu")}>
-        <Item itemId={router.query.itemId} />
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+       
+        <ProductId itemId={router.query.itemId} />
       </Modal>
     </div>
   );
@@ -153,3 +177,4 @@ export default Menu
 //       }
 //     }
 // }
+//  <Item itemId={router.query.itemId} /> INSIDE MODAL

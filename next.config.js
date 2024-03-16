@@ -14,6 +14,7 @@ module.exports = withTM ({
       'images.squarespace-cdn.com',
       'connect.squareupsandbox.com',
       'images.unsplash.com',
+      'items-images-sandbox.s3.us-west-2.amazonaws.com',
 
     ],
   },
