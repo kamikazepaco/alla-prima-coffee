@@ -3,8 +3,11 @@
     margin: auto;
     --slide-height: 19rem;
     --slide-spacing: 1rem;
-    --slide-size: 70%;
+    --slide-size: 100%;
+    overflow: hidden;
+    justify-content: center;
   }
+
   .embla__viewport {
     overflow: hidden;
   }
@@ -13,10 +16,11 @@
     display: flex;
     touch-action: pan-y;
     margin-left: calc(var(--slide-spacing) * -1);
+    min-width: 100vw;
   }
   .embla__slide {
     flex: 0 0 var(--slide-size);
-    min-width: 0;
+    min-width: 65vw;
     padding-left: var(--slide-spacing);
   }
   .embla__slide__number {

@@ -33,11 +33,18 @@ a {
 
 .embla {
   overflow: hidden;
+  min-width: 50vw;
+
 }
 .embla__container {
   display: flex;
+  justify-content: center;
 }
 .embla__slide {
   flex: 0 0 100%;
-  min-width: 0;
+  min-width:100vw;
+}
+
+.container {
+  margin-left: 0;
 }

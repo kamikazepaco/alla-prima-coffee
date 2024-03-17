@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../styles/Hero.module.css'
+import EmblaCarousel from './EmblaCarousel'
 
 const Hero = () => {
   return (
