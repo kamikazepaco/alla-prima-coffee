@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Item  from '../../components/ItemDetails';
 import ProductId from './[ProductId]';
+import styles from '../../styles/Menu.module.css'
 
 
 (BigInt.prototype as any).toJSON = function() { return this.toString(); }
@@ -18,59 +19,32 @@ const Menu = ({relData, data}) => {
   const router = useRouter()
   
     var items = data.map((a:any) => Object.assign(a, relData.find((b:any) => b.id == a.itemData.imageIds)));
-    console.log(items)
 
   return (
     <div>
-      {/* {router.query.itemId && (
-        <Modal
-          onClose={() => {
-            router.push("/");
-          }}
-        >
-          <Item itemId={router.query.itemId} />
-          <h1>oof</h1>
-        </Modal>
-      )} */}
       <h1>Menu</h1>
 
       {items &&
         items.map((item: any) => (
           
           <>
-          <Image 
-            src={item.imageData.url}
-            width={150}
-            height={150}
-            alt={item.imageData.name}
-          />
-            <p>
-              ** {item.itemData.name} ITEM ID IS{" "}
-              {item.itemData.variations[0].itemVariationData.itemId}
-            </p>
-            <h2>{item.itemData.name}</h2>
-            <h3>{item.itemData.description}</h3>
-
-            {/* In order to reduce amount of API calls/Just have the ID needed for each new page, I passed a quesry within the Link that contains the itemId and image logic. for educational purposes, the [id] pages will probably use getStaticPros */}
-
-            {/* I wanted a way to pass link as item's name. theo nly way to do so and have the code persistent on reload was to pass itemId in query for initial pull and as key in URL for reload/sharing link. more research required  */}
-            {/* <Link
-              href={{
-                pathname: `/?itemId=${item.itemData.variations[0].itemVariationData.itemId}`,
-                query: {
-                  itemId: item.itemData.variations[0].itemVariationData.itemId,
-                  imageId: `${
-                    item.imageData?.url ||
-                    "https://images.squarespace-cdn.com/content/v1/60d9bda05f2faf5b5587197e/1626686508702-EZGYKT0UQ1AMJ8ULFCEC/logotype.png?format=750w"
-                  }`,
-                },
-              }}
-              as={`/menu/${item.itemData.name}?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
-            >
-              <a>
-                <h4>Details</h4>
-              </a>
-            </Link> */}
+            <div className={styles.Menu_container}>
+              <Image 
+                src={item.imageData.url}
+                width={200}
+                height={200}
+                alt={item.imageData}
+              />
+              <div className={styles.Menu_container_text}>
+                <p>
+                  ** {item.itemData.name} ITEM ID IS{" "}
+                  {item.itemData.variations[0].itemVariationData.itemId}
+                </p>
+                <h2 className='text-6xl'>{item.itemData.name}</h2>
+                <h3>{item.itemData.description}</h3>
+              </div>
+            </div>
+            
             <Link
               href={`/menu/?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
               as={`/menu/${item.itemData.name}?itemId=${item.itemData.variations[0].itemVariationData.itemId}`}
@@ -85,7 +59,8 @@ const Menu = ({relData, data}) => {
               //attempting to use counter to iterate variation numbers for the 'more info' section
               
               <>
-                <p>{variation.itemVariationData.name}:</p>
+              <div>
+                <p className='text-3xl'>{variation.itemVariationData.name}:</p>
                 
                 <p>
                   {" "}
@@ -99,13 +74,14 @@ const Menu = ({relData, data}) => {
                   href={`/menu/?itemId=${variation.id}`}
                   as={`/menu/${item.itemData.name}?itemId=${variation.id}`}
                 >
-                <a>
-                  <h4>More Info</h4>
-                </a>
-              </Link>
+                  <a>
+                    <h4>More Info</h4>
+                  </a>
+                </Link>
+              </div>
               </>
             ))}
-            <hr></hr>
+            <hr className='py-4'></hr>
           </>
         ))}
 
