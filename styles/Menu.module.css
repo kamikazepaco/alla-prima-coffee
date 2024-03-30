@@ -1,5 +1,12 @@
 .Menu_container {
     display: flex;
     margin: auto;
+    width: 100%;
+}
+
+.Menu_container_price {
+    display: inline-flex;
+    width: 50%;
+    justify-content: space-between;
 }
 

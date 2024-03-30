@@ -42,7 +42,9 @@ const Menu = ({relData, data}) => {
                 </p>
                 <h2 className='text-6xl'>{item.itemData.name}</h2>
                 <h3>{item.itemData.description}</h3>
+              
               </div>
+              
             </div>
             
             <Link
@@ -53,14 +55,15 @@ const Menu = ({relData, data}) => {
                 <h4>Details</h4>
               </a>
             </Link>
-
+            <div className={styles.Menu_container_price}>
             {item.itemData.variations.map((variation) => (
               // this is my current solution for displaying price variations. its not elegant, but it gets the job done. God speed when it comes to importing the image
               //attempting to use counter to iterate variation numbers for the 'more info' section
               
               <>
-              <div>
-                <p className='text-3xl'>{variation.itemVariationData.name}:</p>
+              <div >
+                <div>
+                <p className='text-3xl flex'>{variation.itemVariationData.name}:</p>
                 
                 <p>
                   {" "}
@@ -79,11 +82,15 @@ const Menu = ({relData, data}) => {
                   </a>
                 </Link>
               </div>
+              </div>
               </>
             ))}
+            </div>
+            
             <hr className='py-4'></hr>
           </>
         ))}
+        
 
       <Modal isOpen={!!router.query.itemId} onRequestClose={() => router.push("/menu")}>
         <p> </p>
